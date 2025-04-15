@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		CF122C252DAE122700AC481A /* shybee2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shybee2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF122C7F2DAE83BD00AC481A /* shybee2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shybee2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,16 +33,8 @@
 			isa = PBXGroup;
 			children = (
 				CF122C272DAE122700AC481A /* shybee2 */,
-				CF122C262DAE122700AC481A /* Products */,
+				CF122C7F2DAE83BD00AC481A /* shybee2.app */,
 			);
-			sourceTree = "<group>";
-		};
-		CF122C262DAE122700AC481A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CF122C252DAE122700AC481A /* shybee2.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -67,7 +59,7 @@
 			packageProductDependencies = (
 			);
 			productName = shybee2;
-			productReference = CF122C252DAE122700AC481A /* shybee2.app */;
+			productReference = CF122C7F2DAE83BD00AC481A /* shybee2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -95,7 +87,7 @@
 			mainGroup = CF122C1C2DAE122700AC481A;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = CF122C262DAE122700AC481A /* Products */;
+			productRefGroup = CF122C1C2DAE122700AC481A;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -260,7 +252,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
@@ -297,7 +289,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.2;

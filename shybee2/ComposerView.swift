@@ -16,7 +16,7 @@ struct ComposerView: View {
             VStack {
                 TextEditor(text: $text)
                     .padding()
-                    .frame(height: 200)
+                    .frame(height: 400)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.gray.opacity(0.3), lineWidth: 1)
