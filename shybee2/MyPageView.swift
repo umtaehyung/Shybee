@@ -42,7 +42,14 @@ struct MypageView: View {
         }
     }
 
-    
+    func deletePost(at offsets: IndexSet) {
+        let myPosts = storage.posts.filter { $0.authorID == deviceID }
+        for index in offsets {
+            if let originalIndex = storage.posts.firstIndex(where: { $0.id == myPosts[index].id }) {
+                storage.posts.remove(at: originalIndex)
+            }
+        }
+    }
 
     func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
