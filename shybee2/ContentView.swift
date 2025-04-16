@@ -8,7 +8,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                // 🐝 SHYBEE 헤더 (로고 + 마이페이지 버튼)
+                // SHYBEE 헤더 (로고 + 마이페이지 버튼)
                 HStack {
                     Image("shybee_logo")
                         .resizable()
@@ -30,13 +30,13 @@ struct ContentView: View {
                 .padding(.top, 12)
 
                 
-                // 🌱 주간 질문 블록
+                // 주간 질문 블록
                  VStack(alignment: .leading, spacing: 4) {
                      Text("4월 둘째주")
-                         .font(.subheadline)
+                         .font(.custom("SUITE-ExtraBold", size: 15))
                          .foregroundColor(.gray)
                      Text("부끄러웠던 경험을 공유해주세요.")
-                         .font(.title3)
+                         .font(.custom("SUITE-ExtraBold", size: 22))
                          .foregroundColor(.primary)
                  }
                  .frame(maxWidth: .infinity, alignment: .leading) // ← 핵심! 가로폭 채우고 왼쪽 정렬
@@ -44,7 +44,7 @@ struct ContentView: View {
                  .padding(.vertical, 12)
                 
                 
-                // 📄 카드 리스트
+                // 카드 리스트
                 ScrollView {
                     LazyVStack(spacing: 16) {
                         if storage.posts.isEmpty {
@@ -66,7 +66,7 @@ struct ContentView: View {
 
                 .overlay(
                     ZStack {
-                        // 💨 블러 박스 (하단에서 위로)
+                        // 블러 박스 (하단에서 위로)
                         VStack {
                             Spacer()
                             VisualBlurBox()
@@ -75,12 +75,12 @@ struct ContentView: View {
                         }
                         .ignoresSafeArea(edges: .bottom)
 
-                        // ➕ 플로팅 버튼 (중앙 아래 고정)
+                        // 플로팅 버튼 (중앙 아래 고정)
                         VStack {
                             Spacer()
                             HStack {
                                 Spacer()
-                                FloatingButton()
+                                FloatingButton(showComposer: $showComposer)
                                 Spacer()
                             }
                             .padding(.bottom, 32) // 필요에 따라 조절
@@ -120,11 +120,13 @@ struct PostCardView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top) {
                 Text(post.content)
-                    .font(.body)
+                    
+                    .font(.custom("SUITE-SemiBold", size: 15))
                     .foregroundColor(.primary)
+                    .lineSpacing(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                VStack(spacing: 4) {
+                VStack(spacing: 8) {
                     Button(action: {
                         toggleLike()
                     }) {
@@ -137,7 +139,8 @@ struct PostCardView: View {
 
                     if post.likes > 0 {
                         Text("\(post.likes)")
-                            .font(.caption)
+                            
+                            .font(.custom("SUITE-ExtraBold", size: 9))
                             .foregroundColor(.secondary)
                     }
                 }
@@ -147,7 +150,7 @@ struct PostCardView: View {
                 .background(Color(hex: "#DDA693"))
 
             Text(formattedDate(post.date))
-                .font(.caption)
+                .font(.custom("SUITE-SemiBold", size: 11))
                 .foregroundColor(.gray)
         }
         .padding()
@@ -173,16 +176,17 @@ struct PostCardView: View {
 
 // floating button 플로팅 버튼 구성
 struct FloatingButton: View {
+    @Binding var showComposer: Bool
+
     var body: some View {
         Button(action: {
-            // 액션 연결
+            showComposer = true
         }) {
             ZStack {
                 Circle()
                     .fill(Color(hex: "#DDA693"))
                     .frame(width: 74, height: 74)
                     .shadow(radius: 4)
-
 
                 Image(systemName: "plus")
                     .resizable()
@@ -191,6 +195,9 @@ struct FloatingButton: View {
                     .foregroundColor(Color(hex: "#FFF9F0"))
             }
         }
-//        .shadow(radius: 4)
     }
+}
+
+#Preview {
+    ContentView()
 }

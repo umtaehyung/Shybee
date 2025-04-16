@@ -10,11 +10,11 @@ import SwiftUI
 struct VisualBlurBox: View {
     var body: some View {
         ZStack {
-            // 💨 시스템 블러 (회색기운 약간 있지만 베이스로 사용)
+            // 시스템 블러 (회색기운 약간 있지만 베이스로 사용)
             BlurView(style: .systemUltraThinMaterial)
                 .blur(radius: 5)
 
-            // 🎨 회색 기운 보정용 베이지색 그라데이션
+            // 회색 기운 보정용 베이지색 그라데이션
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color(hex: "#FFF9F0").opacity(0.4),
@@ -25,7 +25,7 @@ struct VisualBlurBox: View {
                 endPoint: .bottom
             )
         }
-        // 🌓 점점 뿌얘지는 느낌: mask로 시각적 fade-in
+        // 점점 뿌얘지는 느낌: mask로 시각적 fade-in
         .mask(
             LinearGradient(
                 gradient: Gradient(colors: [
