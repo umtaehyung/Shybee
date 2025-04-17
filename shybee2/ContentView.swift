@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var weeklyQuestion: WeeklyQuestion
     @StateObject var storage = PostStorage()
     @State private var showComposer = false
     @State private var showMypage = false
@@ -32,10 +33,10 @@ struct ContentView: View {
                 
                 // 주간 질문 블록
                  VStack(alignment: .leading, spacing: 4) {
-                     Text("4월 둘째주")
+                     Text(weeklyQuestion.currentWeekTitle)
                          .font(.custom("SUITE-ExtraBold", size: 15))
                          .foregroundColor(.gray)
-                     Text("부끄러웠던 경험을 공유해주세요.")
+                     Text(weeklyQuestion.currentWeekQuestion)
                          .font(.custom("SUITE-ExtraBold", size: 22))
                          .foregroundColor(.primary)
                  }
@@ -55,7 +56,7 @@ struct ContentView: View {
 
                         // 밑에꺼가 복잡해서 새로 넣은 거임
                         ForEach(storage.posts) { post in
-                            PostCardView(post: post) {
+                            PostCardView(post: post, showLike: true) {
                                 storage.toggleLike(for: post)
                             }
                         }
@@ -114,34 +115,37 @@ struct ContentView: View {
 //PostCardView 컴포넌트 정의
 struct PostCardView: View {
     let post: Post
+    let showLike : Bool
     let toggleLike: () -> Void
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top) {
                 Text(post.content)
-                    
+                
                     .font(.custom("SUITE-SemiBold", size: 15))
                     .foregroundColor(.primary)
                     .lineSpacing(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
-
-                VStack(spacing: 8) {
-                    Button(action: {
-                        toggleLike()
-                    }) {
-                        Image(systemName: post.isLiked ? "heart.fill" : "heart")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(post.isLiked ? .pink : Color(hex: "#DDA693"))
-                    }
-
-                    if post.likes > 0 {
-                        Text("\(post.likes)")
+                
+                if showLike {
+                    VStack(spacing: 8) {
+                        Button(action: {
+                            toggleLike()
+                        }) {
+                            Image(systemName: post.isLiked ? "heart.fill" : "heart")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(post.isLiked ? .pink : Color(hex: "#FFA7BF"))
+                        }
+                        
+                        if post.likes > 0 {
+                            Text("\(post.likes)")
                             
-                            .font(.custom("SUITE-ExtraBold", size: 9))
-                            .foregroundColor(.secondary)
+                                .font(.custom("SUITE-ExtraBold", size: 9))
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
             }

@@ -49,3 +49,23 @@ class PostStorage: ObservableObject {
     }
 }
 
+// 마이페이지 뷰 프리뷰용 샘플
+extension PostStorage {
+    static var sample: PostStorage {
+        let storage = PostStorage()
+        storage.posts = [
+            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
+            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown")
+        ]
+        return storage
+    }
+}
