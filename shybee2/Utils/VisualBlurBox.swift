@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct VisualBlurBox: View {
     var body: some View {
@@ -14,7 +15,7 @@ struct VisualBlurBox: View {
             BlurView(style: .systemUltraThinMaterial)
                 .blur(radius: 5)
 
-            // 회색 기운 보정용 베이지색 그라데이션
+            // 회끼 도는 보정용 베이지색 그라데이션
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color(hex: "#FFF9F0").opacity(0.4),
@@ -39,9 +40,6 @@ struct VisualBlurBox: View {
         )
     }
 }
-
-import SwiftUI
-import UIKit
 
 struct BlurView: UIViewRepresentable {
     var style: UIBlurEffect.Style

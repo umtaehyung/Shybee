@@ -30,7 +30,7 @@ struct ComposerView: View {
                 ZStack(alignment: .topLeading) {
                     // Placeholder
                     if text.isEmpty {
-                        Text("여기에 부끄러웠던 경험을 적어주세요.")
+                        Text("당신의 이야기를 들려주세요")
                             .foregroundColor(.gray)
                             .font(.custom("SUITE-Regular", size: 16))
                             .padding(.horizontal, 20)
