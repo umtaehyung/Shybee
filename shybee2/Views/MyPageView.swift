@@ -1,22 +1,20 @@
-//
-//  MyPageView.swift
-//  shybee2
-//
-//  Created by Taehyung Um on 4/15/25.
-//
 import SwiftUI
-
 
 struct MypageView: View {
     @ObservedObject var storage: PostStorage
     @Environment(\.dismiss) var dismiss
     @Environment(\.editMode) var editMode
+    
+    @State private var pendingDeleteOffsets: IndexSet? = nil
+    @State private var showDeleteConfirmation: Bool = false
+    
+    
     private let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? "unknown"
     
     var myPosts: [Post] {
         storage.posts.filter { $0.authorID == deviceID }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -29,7 +27,7 @@ struct MypageView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 16)
                 .padding(.top, 16)
-
+                
                 // 리스트 (스와이프 삭제 가능)
                 List {
                     ForEach(myPosts) { post in
@@ -40,19 +38,34 @@ struct MypageView: View {
                         .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                         .listRowSeparator(.hidden)
                     }
-                    .onDelete(perform: deletePost)
+                    .onDelete { offsets in
+                        
+                        withAnimation(nil) {
+                            pendingDeleteOffsets = offsets
+                            showDeleteConfirmation = true
+                        }
+                    }
                 }
                 .listStyle(.plain)
                 .background(Color(hex: "#FFF9F0"))
                 .environment(\.editMode, editMode)
+                .confirmationDialog("이 게시물을 삭제하겠습니까? 이 동작은 취소할 수 없습니다.", isPresented: $showDeleteConfirmation, titleVisibility: .visible) {
+                    Button("삭제", role: .destructive) {
+                        if let offsets = pendingDeleteOffsets {
+                            deletePost(at: offsets)
+                        }
+                        pendingDeleteOffsets = nil
+                    }
+                    Button("취소", role: .cancel) {
+                        pendingDeleteOffsets = nil
+                    }
+                }
             }
             .background(Color(hex: "#FFF9F0").ignoresSafeArea())
-
+            
             // 상단 툴바
             .toolbar {
-              // 닫기 버튼
                 ToolbarItem(placement: .cancellationAction) {
-                    
                     Button(action: {
                         dismiss()
                     }) {
@@ -62,7 +75,6 @@ struct MypageView: View {
                     }
                 }
                 
-                // 편집 버튼
                 ToolbarItem(placement: .automatic) {
                     Button(action: {
                         withAnimation {
@@ -83,7 +95,7 @@ struct MypageView: View {
             }
         }
     }
-
+    
     func deletePost(at offsets: IndexSet) {
         let myPosts = storage.posts.filter { $0.authorID == deviceID }
         for index in offsets {
@@ -92,7 +104,7 @@ struct MypageView: View {
             }
         }
     }
-
+    
     func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 M월 d일 EEEE"
@@ -101,11 +113,8 @@ struct MypageView: View {
     }
 }
 
-
-
 struct MypageView_Previews: PreviewProvider {
     static var previews: some View {
-        // 샘플 PostStorage 넣어줘야 함!
         MypageView(storage: PostStorage.sample)
     }
 }
