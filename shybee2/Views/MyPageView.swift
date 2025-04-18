@@ -6,55 +6,68 @@
 //
 import SwiftUI
 
+
 struct MypageView: View {
     @ObservedObject var storage: PostStorage
     @Environment(\.dismiss) var dismiss
     private let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? "unknown"
     
+    var myPosts: [Post] {
+        storage.posts.filter { $0.authorID == deviceID }
+    }
+
     var body: some View {
         NavigationView {
-            VStack{
-                VStack{
+            VStack {
+                // 상단 타이틀
+                VStack {
                     Text("나의 이야기")
                         .font(.custom("SUITE-ExtraBold", size: 24))
-                    .foregroundColor(.primary)}
+                        .foregroundColor(.primary)
+                }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 16)
-                
-                
-                ScrollView {
-                    LazyVStack (spacing: 16){
-                        ForEach(storage.posts.filter { $0.authorID == deviceID }) { post in
-                            PostCardView(post: post, showLike: false){
-                                storage.toggleLike(for: post)
-                            }
+                .padding(.top, 16)
+
+                // 리스트 (스와이프 삭제 가능)
+                List {
+                    ForEach(myPosts) { post in
+                        PostCardView(post: post, showLike: false) {
+                            storage.toggleLike(for: post)
                         }
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
+                        .listRowSeparator(.hidden)
                     }
-                    .padding(.top, 8)
+                    .onDelete(perform: deletePost)
                 }
+                .listStyle(.plain)
+                .background(Color(hex: "#FFF9F0"))
             }
             .background(Color(hex: "#FFF9F0").ignoresSafeArea())
-            
-            // 상단 툴바 영역
+
+            // 상단 툴바
             .toolbar {
+              // 닫기 버튼
                 ToolbarItem(placement: .cancellationAction) {
+                    
                     Button(action: {
                         dismiss()
                     }) {
-                        Text("닫기")
-                            .font(.custom("SUITE-Regular", size: 18))
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .light))
                             .foregroundColor(.primary)
                     }
                 }
-                ToolbarItem(placement: .automatic) {
-                    EditButton()
-                }
+                
+                
+//                ToolbarItem(placement: .automatic) {
+//                    EditButton()
+//                }
             }
         }
     }
-    
-    
-    
+
     func deletePost(at offsets: IndexSet) {
         let myPosts = storage.posts.filter { $0.authorID == deviceID }
         for index in offsets {
@@ -63,9 +76,7 @@ struct MypageView: View {
             }
         }
     }
-    
-    
-    
+
     func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 M월 d일 EEEE"

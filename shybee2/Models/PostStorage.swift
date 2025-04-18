@@ -49,7 +49,18 @@ class PostStorage: ObservableObject {
     }
 }
 
-// 마이페이지 뷰 프리뷰용 샘플
+// 여기부터
+extension PostStorage {
+    func delete(_ post: Post) {
+        if let index = posts.firstIndex(where: { $0.id == post.id }) {
+            posts.remove(at: index)
+        }
+    }
+}
+// 여기까지 마이페이지 삭제 커스텀을 위한 코드
+
+
+// 마이페이지 뷰, 프리뷰용 샘플 코드
 extension PostStorage {
     static var sample: PostStorage {
         let storage = PostStorage()

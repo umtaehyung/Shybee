@@ -130,7 +130,7 @@ struct PostCardView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
-                                .foregroundColor(post.isLiked ? .pink : Color(hex: "#FFA7BF"))
+                                .foregroundColor(post.isLiked ? .pink : Color(hex: "#DDA693"))
                         }
                         if post.likes > 0 {
                             Text("\(post.likes)")
