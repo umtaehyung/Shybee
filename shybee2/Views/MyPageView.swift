@@ -10,6 +10,7 @@ import SwiftUI
 struct MypageView: View {
     @ObservedObject var storage: PostStorage
     @Environment(\.dismiss) var dismiss
+    @Environment(\.editMode) var editMode
     private let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? "unknown"
     
     var myPosts: [Post] {
@@ -43,6 +44,7 @@ struct MypageView: View {
                 }
                 .listStyle(.plain)
                 .background(Color(hex: "#FFF9F0"))
+                .environment(\.editMode, editMode)
             }
             .background(Color(hex: "#FFF9F0").ignoresSafeArea())
 
@@ -60,10 +62,24 @@ struct MypageView: View {
                     }
                 }
                 
-                
-//                ToolbarItem(placement: .automatic) {
-//                    EditButton()
-//                }
+                // 편집 버튼
+                ToolbarItem(placement: .automatic) {
+                    Button(action: {
+                        withAnimation {
+                            if editMode?.wrappedValue == .active {
+                                editMode?.wrappedValue = .inactive
+                            } else {
+                                editMode?.wrappedValue = .active
+                            }
+                        }
+                    }) {
+                        Text(editMode?.wrappedValue == .active ? "완료" : "편집")
+                            .font(.custom("SUITE-Regular", size: 18))
+                            .foregroundColor(
+                                editMode?.wrappedValue == .active ? Color.primary : Color.blue
+                            )
+                    }
+                }
             }
         }
     }
