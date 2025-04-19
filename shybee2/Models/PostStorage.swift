@@ -9,11 +9,8 @@ class PostStorage: ObservableObject {
     }
 
     private let key = "posts_data"
-    private let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? "unknown"
 
     init() {
-        // ✅ 앱 실행 시 UserDefaults 초기화 (임시로 데이터 삭제)
-        //UserDefaults.standard.removeObject(forKey: key)
         loadPosts()
     }
 
@@ -49,31 +46,12 @@ class PostStorage: ObservableObject {
     }
 }
 
-// 여기부터
-extension PostStorage {
-    func delete(_ post: Post) {
-        if let index = posts.firstIndex(where: { $0.id == post.id }) {
-            posts.remove(at: index)
-        }
-    }
-}
-// 여기까지 마이페이지 삭제 커스텀을 위한 코드
-
 
 // 마이페이지 뷰, 프리뷰용 샘플 코드
 extension PostStorage {
     static var sample: PostStorage {
         let storage = PostStorage()
         storage.posts = [
-            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
-            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
-            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
-            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
-            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
-            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
-            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
-            Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
-            Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
             Post(id: UUID(), content: "마이페이지에서 보는 샘플 글", date: Date(), likes: 0, isLiked: false, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown"),
             Post(id: UUID(), content: "두 번째 글도 보여요!", date: Date(), likes: 2, isLiked: true, authorID: UIDevice.current.identifierForVendor?.uuidString ?? "unknown")
         ]
