@@ -25,8 +25,8 @@ struct MypageView: View {
                         .foregroundColor(.primary)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
+                .padding(.horizontal)
+                .padding(.top)
                 
                 // 리스트 (스와이프 삭제 가능)
                 List {
@@ -47,13 +47,13 @@ struct MypageView: View {
                             .tint(.red)
                         }
                     }
-//                    .onDelete { offsets in
-//                        
-//                        withAnimation(nil) {
-//                            pendingDeleteOffsets = offsets
-//                            showDeleteConfirmation = true
-//                        }
-//                    }
+                    .onDelete { offsets in
+                        
+                        withAnimation(nil) {
+                            pendingDeleteOffsets = offsets
+                            showDeleteConfirmation = true
+                        }
+                    }
                 }
                 .listStyle(.plain)
                 .background(Color(hex: "#FFF9F0"))
