@@ -30,21 +30,30 @@ struct MypageView: View {
                 
                 // 리스트 (스와이프 삭제 가능)
                 List {
-                    ForEach(myPosts) { post in
+                    ForEach(Array(myPosts.enumerated()), id: \.offset) { index, post in
                         PostCardView(post: post, showLike: false) {
                             storage.toggleLike(for: post)
                         }
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                         .listRowSeparator(.hidden)
-                    }
-                    .onDelete { offsets in
-                        
-                        withAnimation(nil) {
-                            pendingDeleteOffsets = offsets
-                            showDeleteConfirmation = true
+                        .swipeActions(edge: .trailing) {
+                            Button {
+                                pendingDeleteOffsets = IndexSet(integer: index)
+                                showDeleteConfirmation = true
+                            } label: {
+                                Text("삭제")
+                            }
+                            .tint(.red)
                         }
                     }
+//                    .onDelete { offsets in
+//                        
+//                        withAnimation(nil) {
+//                            pendingDeleteOffsets = offsets
+//                            showDeleteConfirmation = true
+//                        }
+//                    }
                 }
                 .listStyle(.plain)
                 .background(Color(hex: "#FFF9F0"))
